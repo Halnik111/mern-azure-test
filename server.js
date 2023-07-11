@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 const port = process.env.PORT || 3001;
 import mongoose from "mongoose";
+import * as path from "path";
 
 const app = express();
 
@@ -42,6 +43,11 @@ app.post("/create", (req, res) => {
     .save()
     .then((user) => res.json(user))
     .catch((err) => console.log(err));
+});
+
+app.use(express.static("./client/build"));
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
 });
 
 app.listen(port, () => {
