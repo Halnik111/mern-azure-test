@@ -1,18 +1,20 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
+import {config} from "dotenv";
+import express from "express";
+import cors from "cors";
 const port = process.env.PORT || 3001;
+import mongoose from "mongoose";
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("Database is connected..."))
-  .catch((err) => console.log(err));
+const connect = () => {
+  mongoose.connect(process.env.MONGO_URI)
+      .then(() => console.log("Database is connected..."))
+      .catch((err) => console.log(err));
+}
+
 
 //db schema
 const userSchema = mongoose.Schema({
@@ -43,5 +45,6 @@ app.post("/create", (req, res) => {
 });
 
 app.listen(port, () => {
+  connect();
   console.log(`Server is running on post ${port}`);
 });
