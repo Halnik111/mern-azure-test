@@ -1,21 +1,19 @@
-import {config} from "dotenv";
-import express from "express";
-import cors from "cors";
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
 const port = process.env.PORT || 3001;
-import mongoose from "mongoose";
-import * as path from "path";
+const path = require('path');
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-const connect = () => {
-  mongoose.connect(process.env.MONGO_URI)
-      .then(() => console.log("Database is connected..."))
-      .catch((err) => console.log(err));
-}
-
+mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => console.log("Database is connected..."))
+    .catch((err) => console.log(err));
 
 //db schema
 const userSchema = mongoose.Schema({
@@ -28,8 +26,8 @@ const User = new mongoose.model("User", userSchema);
 
 app.get("/get-users", (req, res) => {
   User.find()
-    .then((users) => res.json(users))
-    .catch((err) => console.log(err));
+      .then((users) => res.json(users))
+      .catch((err) => console.log(err));
 });
 
 app.post("/create", (req, res) => {
@@ -40,9 +38,9 @@ app.post("/create", (req, res) => {
   });
 
   newUser
-    .save()
-    .then((user) => res.json(user))
-    .catch((err) => console.log(err));
+      .save()
+      .then((user) => res.json(user))
+      .catch((err) => console.log(err));
 });
 
 app.use(express.static("./client/build"));
@@ -51,6 +49,9 @@ app.get("*", (req, res) => {
 });
 
 app.listen(port, () => {
-  connect();
   console.log(`Server is running on post ${port}`);
 });
+
+
+
+
