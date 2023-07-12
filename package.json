@@ -5,7 +5,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "node server.js"
+    "test": "node server.cjs"
   },
   "keywords": [],
   "author": "",
