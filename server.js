@@ -1,9 +1,9 @@
-import {config} from "dotenv";
+require("dotenv").config();
 import express from 'express';
 import cors from 'cors';
 import mongoose from "mongoose";
-import path from "path";
 const port = process.env.PORT || 3001;
+const path = require('path');
 
 const app = express();
 
