@@ -1,9 +1,9 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
+import {config} from "dotenv";
+import express from 'express';
+import cors from 'cors';
+import mongoose from "mongoose";
+import path from "path";
 const port = process.env.PORT || 3001;
-const path = require('path');
 
 const app = express();
 
@@ -44,6 +44,7 @@ app.post("/create", (req, res) => {
 });
 
 app.use(express.static("./client/build"));
+
 app.get("/", (req, res) => {
   res.send('Working');
 });
